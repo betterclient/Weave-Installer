@@ -1,10 +1,12 @@
 package io.github.betterclient.weaveinstaller;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -34,15 +36,13 @@ public class Main {
 
         download("Weave-MC", "Weave-Loader", agent, operatinSystem);
 
+        JOptionPane.showConfirmDialog(null, "Finished installing, launch the file called LunarClientLaunch in the folder injector to play!");
         System.exit(0);
         throw new RuntimeException("how tf");
     }
 
     public static void download(String owner, String repo, File to, OS os) throws Exception {
-        boolean doOSCheck = true;
-
-        if(owner.equals("Weave-MC"))
-            doOSCheck = false;
+        boolean doOSCheck = !owner.equals("Weave-MC");
 
         String apiUrl = String.format("https://api.github.com/repos/%s/%s/releases/latest", owner, repo);
         URL url = new URL(apiUrl);
